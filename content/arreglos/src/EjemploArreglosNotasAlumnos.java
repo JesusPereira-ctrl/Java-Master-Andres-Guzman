@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class EjemploArregloNotasAlumnos {
+public class EjemploArreglosNotasAlumnos {
     public static void main(String[] args) {
 
         double[] claseMatematicas, claseHistoria, claseLenguaje;
