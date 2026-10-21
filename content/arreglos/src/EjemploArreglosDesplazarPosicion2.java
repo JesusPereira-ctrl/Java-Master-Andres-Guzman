@@ -18,7 +18,7 @@ public class EjemploArreglosDesplazarPosicion2 {
         System.out.println("Nuevo elemento:");
         elemento = s.nextInt();
 
-        System.out.println("Posicion donde agregar (de 0 a 9)");
+        System.out.println("Posición donde agregar (de 0 a 9)");
         posicion = s.nextInt();
 
         for (int i = a.length - 2; i >= posicion; i--) {
