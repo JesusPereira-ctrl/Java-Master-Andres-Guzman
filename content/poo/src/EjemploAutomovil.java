@@ -21,5 +21,9 @@ public class EjemploAutomovil {
         System.out.println(subaru.frenar());
 
         System.out.println(mazda.acelerarFrenar(4000));
+
+        System.out.println("Kilómetros por litro " + subaru.calcularConsumo(300, 0.6f));
+
+        System.out.println("Kilómetros por litro " + subaru.calcularConsumo(300, 60));
     }
 }
