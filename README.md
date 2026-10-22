@@ -1,6 +1,8 @@
 # Master Java Course by Andrés Guzman
 
-<img src="./assets/Java.png" width="300" alt="Java">
+<div align="center">
+    <img src="./assets/Java.png" width="300" alt="Java">
+</div>
 
 ## Something History
 
