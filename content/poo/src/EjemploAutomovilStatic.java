@@ -24,5 +24,7 @@ public class EjemploAutomovilStatic {
         System.out.println(nissan2.verDetalle());
         System.out.println("Automovil.getColorPatente() = " + Automovil.getColorPatente());
         System.out.println("kilómetros por litros = " + Automovil.calcularConsumoEstatico(300, 60));
+        System.out.println("Velocidad máxima carretera: " + Automovil.VELOCIDAD_MAX_CARRETERA);
+        System.out.println("Velocidad máxima ciudad: " + Automovil.VELOCIDAD_MAX_CIUDAD);
     }
 }
