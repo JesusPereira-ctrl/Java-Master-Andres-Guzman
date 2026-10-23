@@ -10,6 +10,7 @@ public class EjemploAutomovilStatic {
 
         Automovil mazda = new Automovil("Mazda", "BT-50", Color.ROJO, new Motor(3.0, TipoMotor.DIESEL));
         mazda.setTipo(TipoAutomovil.PICKUP);
+        // mazda.setEstanque(new Estanque());
         System.out.println("mazda.leerFabricante() = " + mazda.getFabricante());
 
         Automovil nissan = new Automovil("Nissan", "Navara", Color.GRIS,
@@ -37,5 +38,7 @@ public class EjemploAutomovilStatic {
         TipoAutomovil tipoSubaru = subaru.getTipo();
         System.out.println("tipo Subaru: " + tipoSubaru.getNombre());
         System.out.println("tipo desc. Subaru: " + tipoSubaru.getDescripcion());
+
+        System.out.println(mazda.calcularConsumo(300, 70));
     }
 }
