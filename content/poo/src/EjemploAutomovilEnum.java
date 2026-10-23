@@ -1,4 +1,4 @@
-public class EjemploAutomovilStaticEnum {
+public class EjemploAutomovilEnum {
     public static void main(String[] args) {
 
         Automovil.setCapacidadEstanqueEstatico(45);
@@ -25,6 +25,16 @@ public class EjemploAutomovilStaticEnum {
             case PICKUP -> System.out.println("Es un automóvil de doble cabina o camioneta");
             case SEDAN -> System.out.println("Es un automóvil mediano");
             case STATION_WAGON -> System.out.println("Es un automóvil más grande, con maleta grande...");
+        }
+
+        TipoAutomovil[] tipos = TipoAutomovil.values();
+
+        for (TipoAutomovil ta : tipos) {
+            System.out.print(ta + " => " + ta.name() + ", " +
+                    ta.getNombre() + ", " +
+                    ta.getDescripcion() + ", " +
+                    ta.getNumeroPuertas());
+            System.out.println();
         }
     }
 }
