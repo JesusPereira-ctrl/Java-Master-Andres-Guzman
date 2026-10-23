@@ -1,6 +1,7 @@
 public class EjemploAutomovilStatic {
     public static void main(String[] args) {
 
+        Automovil.setCapacidadEstanqueEstatico(45);
         Automovil subaru = new Automovil("Subaru", "Impreza");
         subaru.setCilindrada(2.0);
         subaru.setColor("Blanco");
@@ -22,5 +23,6 @@ public class EjemploAutomovilStatic {
 
         System.out.println(nissan2.verDetalle());
         System.out.println("Automovil.getColorPatente() = " + Automovil.getColorPatente());
+        System.out.println("kilómetros por litros = " + Automovil.calcularConsumoEstatico(300, 60));
     }
 }
