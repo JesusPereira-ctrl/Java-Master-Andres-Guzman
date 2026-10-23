@@ -10,6 +10,11 @@ public class EjemploAutomovil {
 
         Automovil nissan = new Automovil("Nissan", "Navara", "Gris oscuro", 3.5, 50);
 
+        Automovil nissan2 = new Automovil("Nissan", "Navara", "Gris oscuro", 3.5, 50);
+
+        System.out.println("son iguales? " + (nissan == nissan2));
+        System.out.println("son iguales con equals? " + (nissan.equals(nissan2)));
+
         System.out.println(subaru.verDetalle());
         System.out.println(mazda.verDetalle());
         System.out.println(nissan.verDetalle());
