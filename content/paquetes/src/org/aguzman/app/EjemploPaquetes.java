@@ -1,6 +1,5 @@
 package org.aguzman.app;
 
-import org.aguzman.app.hogar.Gato;
 import org.aguzman.app.hogar.Persona;
 
 public class EjemploPaquetes {
@@ -9,6 +8,9 @@ public class EjemploPaquetes {
         Persona p = new Persona();
         p.nombre = "Andrés";
         System.out.println(p.nombre);
-        Gato g = new Gato();
+
+        Perro perro = new Perro();
+        perro.nombre = "Toby";
+        perro.raza = "Bulldog";
     }
 }
