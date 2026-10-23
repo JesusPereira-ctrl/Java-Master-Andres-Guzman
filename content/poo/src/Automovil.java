@@ -6,49 +6,49 @@ public class Automovil {
     private double cilindrada;
     private int capacidadEstanque = 40;
 
-    public String leerFabricante() {
-        return this.fabricante;
+    public String getFabricante() {
+        return fabricante;
     }
 
-    public void asignarFabricante(String fabricante) {
+    public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
     }
 
-    public String leerModelo() {
-        return this.modelo;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void asignarModelo(String modelo) {
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
-    public String leerColor() {
-        return this.color;
+    public String getColor() {
+        return color;
     }
 
-    public void asignarColor(String color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
-    public double leerCilindrada() {
-        return this.cilindrada;
+    public double getCilindrada() {
+        return cilindrada;
     }
 
-    public void asignarCilindrada(double cilindrada) {
+    public void setCilindrada(double cilindrada) {
         this.cilindrada = cilindrada;
     }
 
-    public int leerCapacidadEstanque() {
-        return this.capacidadEstanque;
+    public int getCapacidadEstanque() {
+        return capacidadEstanque;
     }
 
-    public void asignarCapacidadEstanque(int capacidadEstanque) {
+    public void setCapacidadEstanque(int capacidadEstanque) {
         this.capacidadEstanque = capacidadEstanque;
     }
 
     public String verDetalle() {
-        return "auto.fabricante = " + this.fabricante +
-                "\nauto.modelo = " + this.modelo +
+        return "auto.fabricante = " + this.getFabricante() +
+                "\nauto.modelo = " + this.getModelo() +
                 "\nauto.color = " + this.color +
                 "\nauto.cilindrada = " + this.cilindrada;
     }
