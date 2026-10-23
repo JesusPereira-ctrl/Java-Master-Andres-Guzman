@@ -162,6 +162,17 @@ public class Automovil {
             detalle += "\nauto.cilindrada = " + this.motor.getCilindrada();
         }
 
+        if (this.getConductor() == null) {
+            detalle += "\nConductor Subaru: " + this.getConductor();
+        }
+
+        if (this.getRuedas() != null) {
+            detalle += "\nRuedas del automóvil:";
+            for (Rueda r : this.getRuedas()) {
+                detalle += "\n" + r.getFabricante() + ", aro: " + r.getAro() + ", ancho: " + r.getAncho();
+            }
+        }
+
         return detalle;
     }
 
