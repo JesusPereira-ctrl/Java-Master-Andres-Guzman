@@ -7,6 +7,7 @@ import org.aguzman.pooherencia.Profesor;
 public class EjemploHerencia {
     public static void main(String[] args) {
 
+        System.out.println("======== Creando la instancia de la clase Alumno ========");
         Alumno alumno = new Alumno();
         alumno.setNombre("Andrés");
         alumno.setApellido("Guzman");
@@ -15,6 +16,7 @@ public class EjemploHerencia {
         alumno.setNotaHistoria(6.3);
         alumno.setNotaMatematica(4.9);
 
+        System.out.println("======== Creando la instancia de la clase AlumnoInternacional ========");
         AlumnoInternacional alumnoInt = new AlumnoInternacional();
         alumnoInt.setNombre("Peter");
         alumnoInt.setApellido("Gosling");
@@ -26,11 +28,13 @@ public class EjemploHerencia {
         alumnoInt.setNotaHistoria(5.8);
         alumnoInt.setNotaMatematica(6.5);
 
+        System.out.println("======== Creando la instancia de la clase Profesor ========");
         Profesor profesor = new Profesor();
         profesor.setNombre("Luci");
         profesor.setApellido("Pérez");
         profesor.setAsignatura("Matemáticas");
 
+        System.out.println("======== - ========");
         System.out.println(alumno.getNombre()
                 + " " + alumno.getApellido()
                 + " " + alumno.getInstitucion());
