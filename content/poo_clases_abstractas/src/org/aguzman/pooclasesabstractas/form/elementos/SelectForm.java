@@ -38,6 +38,7 @@ public class SelectForm extends ElementoForm {
 
             if (opcion.isSelected()) {
                 sb.append(" selected");
+                this.valor = opcion.getValor();
             }
 
             sb.append(">")
