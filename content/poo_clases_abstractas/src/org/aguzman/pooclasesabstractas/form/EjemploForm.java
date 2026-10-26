@@ -46,10 +46,10 @@ public class EjemploForm {
         };
 
         saludar.setValor("Hola que tal este campo está deshabilitado!");
-        username.setValor("");
-        password.setValor("a1b2c");
-        email.setValor("john.doecorreo.com");
-        edad.setValor("28l");
+        username.setValor("john.doe");
+        password.setValor("a1b2c3");
+        email.setValor("john.doe@correo.com");
+        edad.setValor("28");
         experiencia.setValor("... más de 10 años de experiencia ...");
 
         List<ElementoForm> elementos = Arrays.asList(
