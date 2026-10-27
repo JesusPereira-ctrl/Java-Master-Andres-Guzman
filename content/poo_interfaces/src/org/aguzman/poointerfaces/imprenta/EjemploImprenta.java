@@ -3,6 +3,8 @@ package org.aguzman.poointerfaces.imprenta;
 import org.aguzman.poointerfaces.imprenta.modelo.*;
 
 import static org.aguzman.poointerfaces.imprenta.modelo.Genero.PROGRAMACION;
+import static org.aguzman.poointerfaces.imprenta.modelo.Imprimible.TEXTO_DEFECTO;
+import static org.aguzman.poointerfaces.imprenta.modelo.Imprimible.imprimir;
 
 public class EjemploImprenta {
     public static void main(String[] args) {
@@ -31,9 +33,14 @@ public class EjemploImprenta {
         imprimir(cv);
         imprimir(informe);
         imprimir(libro);
-    }
+        
+        imprimir(new Imprimible() {
+            @Override
+            public String imprimir() {
+                return "Hola que tal, imprimiendo un objeto genérico de una clase anónima!";
+            }
+        });
 
-    public static void imprimir(Imprimible imprimible) {
-        System.out.println(imprimible.imprimir());
+        System.out.println(TEXTO_DEFECTO);
     }
 }
