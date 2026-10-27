@@ -39,6 +39,10 @@ public class EjemploGenericos {
         List<ClientePremium> clientesPremiumList = fromArrayToList(new ClientePremium[]{
                 new ClientePremium("Paco", "Fernández")
         });
+
+        imprimirClientes(clientes);
+        imprimirClientes(clientesLista);
+        imprimirClientes(clientesPremiumList);
     }
 
     public static <T> List<T> fromArrayToList(T[] c) {
@@ -49,7 +53,7 @@ public class EjemploGenericos {
         return Arrays.asList(c);
     }
 
-    public static <T extends Cliente & Comparable<T>> List<T> fromArrayToList(T[] c) {
+    public static <T extends Cliente> List<T> fromArrayToList(T[] c) {
         return Arrays.asList(c);
     }
 
@@ -58,5 +62,9 @@ public class EjemploGenericos {
             System.out.println(elemento);
         }
         return Arrays.asList(c);
+    }
+
+    public static void imprimirClientes(List<? extends Cliente> clientes) {
+        clientes.forEach(System.out::println);
     }
 }
