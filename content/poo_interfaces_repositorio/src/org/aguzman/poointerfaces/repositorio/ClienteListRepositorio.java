@@ -49,28 +49,31 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
 
     @Override
     public List<Cliente> listar(String campo, Direccion dir) {
-        dataSource.sort((a, b) -> {
+        List<Cliente> listaOrdenada = new ArrayList<>(this.dataSource);
+        listaOrdenada.sort((a, b) -> {
             int resultado = 0;
             if (dir == Direccion.ASC) {
-                switch (campo) {
-                    case "id" -> resultado = a.getId().compareTo(b.getId());
-                    case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
-                    case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
-                }
+                resultado = ordenar(campo, a, b);
             } else if (dir == Direccion.DESC) {
-                switch (campo) {
-                    case "id" -> resultado = b.getId().compareTo(a.getId());
-                    case "nombre" -> resultado = b.getNombre().compareTo(a.getNombre());
-                    case "apellido" -> resultado = b.getApellido().compareTo(a.getApellido());
-                }
+                resultado = ordenar(campo, b, a);
             }
             return resultado;
         });
-        return dataSource;
+        return listaOrdenada;
     }
 
     @Override
     public List<Cliente> listar(int desde, int hasta) {
         return this.dataSource.subList(desde, hasta);
+    }
+
+    public static int ordenar(String campo, Cliente a, Cliente b) {
+        int resultado = 0;
+        switch (campo) {
+            case "id" -> resultado = a.getId().compareTo(b.getId());
+            case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
+            case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
+        }
+        return resultado;
     }
 }

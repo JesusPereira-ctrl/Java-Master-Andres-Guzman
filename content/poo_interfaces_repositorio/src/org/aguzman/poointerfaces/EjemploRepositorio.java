@@ -35,11 +35,11 @@ public class EjemploRepositorio {
         repo.editar(beaActualizar);
         Cliente bea = repo.porId(2);
         System.out.println(bea);
+        System.out.println(" ============== ");
         ((OrdenableRepositorio) repo)
-                .listar("apellido", Direccion.ASC).forEach(System.out::println);
-
+                .listar("nombre", Direccion.ASC).forEach(System.out::println);
         System.out.println("===== eliminar =====");
-        repo.eliminar(2);
+        // repo.eliminar(2);
         repo.listar().forEach(System.out::println);
     }
 }
