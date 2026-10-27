@@ -5,7 +5,7 @@ import org.aguzman.poointerfaces.modelo.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteListRepositorio implements CrudRepositorio, OrdenableRepositorio, PaginableRepositorio {
+public class ClienteListRepositorio implements OrdenablePaginableCrudRepositorio {
 
     private List<Cliente> dataSource;
 
@@ -75,5 +75,10 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
             case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
         }
         return resultado;
+    }
+
+    @Override
+    public int total() {
+        return this.dataSource.size();
     }
 }
