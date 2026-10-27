@@ -4,7 +4,7 @@ import org.aguzman.poointerfaces.modelo.Cliente;
 
 import java.util.List;
 
-public interface CrudRepository {
+public interface CrudRepositorio {
 
     List<Cliente> listar();
 
