@@ -1,6 +1,7 @@
 package org.aguzman.generics;
 
 import org.aguzman.poointerfaces.modelo.Cliente;
+import org.aguzman.poointerfaces.modelo.ClientePremium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,9 +35,21 @@ public class EjemploGenericos {
                 "John"
         }, enterosArreglo);
         nombres.forEach(System.out::println);
+
+        List<ClientePremium> clientesPremiumList = fromArrayToList(new ClientePremium[]{
+                new ClientePremium("Paco", "Fernández")
+        });
     }
 
     public static <T> List<T> fromArrayToList(T[] c) {
+        return Arrays.asList(c);
+    }
+
+    public static <T extends Number> List<T> fromArrayToList(T[] c) {
+        return Arrays.asList(c);
+    }
+
+    public static <T extends Cliente & Comparable<T>> List<T> fromArrayToList(T[] c) {
         return Arrays.asList(c);
     }
 
@@ -47,4 +60,3 @@ public class EjemploGenericos {
         return Arrays.asList(c);
     }
 }
-
