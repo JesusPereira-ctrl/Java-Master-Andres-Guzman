@@ -1,10 +1,8 @@
 package org.aguzman.poointerfaces.repositorio;
 
-import org.aguzman.poointerfaces.modelo.Cliente;
-
 import java.util.List;
 
-public interface OrdenableRepositorio {
+public interface OrdenableRepositorio<T> {
 
-    List<Cliente> listar(String campo, Direccion dir);
+    List<T> listar(String campo, Direccion dir);
 }

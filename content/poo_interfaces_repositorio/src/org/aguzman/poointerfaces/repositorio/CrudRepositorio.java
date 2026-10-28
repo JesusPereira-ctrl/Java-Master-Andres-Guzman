@@ -1,18 +1,16 @@
 package org.aguzman.poointerfaces.repositorio;
 
-import org.aguzman.poointerfaces.modelo.Cliente;
-
 import java.util.List;
 
-public interface CrudRepositorio {
+public interface CrudRepositorio<T> {
 
-    List<Cliente> listar();
+    List<T> listar();
 
-    Cliente porId(Integer id);
+    T porId(Integer id);
 
-    void crear(Cliente cliente);
+    void crear(T t);
 
-    void editar(Cliente cliente);
+    void editar(T t);
 
     void eliminar(Integer id);
 }
