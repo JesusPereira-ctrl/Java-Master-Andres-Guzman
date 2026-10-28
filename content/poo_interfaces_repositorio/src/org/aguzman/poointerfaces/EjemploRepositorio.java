@@ -1,9 +1,9 @@
 package org.aguzman.poointerfaces;
 
 import org.aguzman.poointerfaces.modelo.Cliente;
-import org.aguzman.poointerfaces.repositorio.ClienteListRepositorio;
 import org.aguzman.poointerfaces.repositorio.Direccion;
 import org.aguzman.poointerfaces.repositorio.OrdenablePaginableCrudRepositorio;
+import org.aguzman.poointerfaces.repositorio.lista.ClienteListRepositorio;
 
 import java.util.List;
 
