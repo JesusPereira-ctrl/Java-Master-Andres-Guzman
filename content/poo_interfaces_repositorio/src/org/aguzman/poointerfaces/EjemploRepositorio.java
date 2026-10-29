@@ -6,6 +6,7 @@ import org.aguzman.poointerfaces.repositorio.OrdenablePaginableCrudRepositorio;
 import org.aguzman.poointerfaces.repositorio.excepciones.AccesoDatoException;
 import org.aguzman.poointerfaces.repositorio.excepciones.EscrituraAccesoDatoException;
 import org.aguzman.poointerfaces.repositorio.excepciones.LecturaAccesoDatoException;
+import org.aguzman.poointerfaces.repositorio.excepciones.RegistroDuplicadoAccesoDatoException;
 import org.aguzman.poointerfaces.repositorio.lista.ClienteListRepositorio;
 
 import java.util.List;
@@ -18,9 +19,11 @@ public class EjemploRepositorio {
             repo.crear(new Cliente("Jano", "Pérez"));
             repo.crear(new Cliente("Bea", "Gonzalez"));
             repo.crear(new Cliente("Luci", "Martinez"));
-            repo.crear(new Cliente("Andrés", "Guzmán"));
+            Cliente andres = new Cliente("Andrés", "Guzmán");
+            repo.crear(andres);
+            repo.crear(andres);
 
-            repo.crear(null);
+            // repo.crear(null);
 
             List<Cliente> clientes = repo.listar();
             clientes.forEach(System.out::println);
@@ -40,7 +43,7 @@ public class EjemploRepositorio {
             Cliente beaActualizar = new Cliente("Bea", "Mena");
             beaActualizar.setId(2);
             repo.editar(beaActualizar);
-            Cliente bea = repo.porId(10);
+            Cliente bea = repo.porId(2);
             System.out.println(bea);
             System.out.println(" ============== ");
             repo.listar("nombre", Direccion.ASC).forEach(System.out::println);
@@ -49,15 +52,18 @@ public class EjemploRepositorio {
             repo.listar().forEach(System.out::println);
             System.out.println("===== total =====");
             System.out.println("Total registros: " + repo.total());
+        } catch (RegistroDuplicadoAccesoDatoException e) {
+            System.out.println("Registro duplicado: " + e.getMessage());
+            e.printStackTrace(System.err);
         } catch (LecturaAccesoDatoException e) {
             System.out.println("Lectura: " + e.getMessage());
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         } catch (EscrituraAccesoDatoException e) {
             System.out.println("Escritura: " + e.getMessage());
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         } catch (AccesoDatoException e) {
             System.out.println("Generica: " + e.getMessage());
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         }
     }
 }
