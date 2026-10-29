@@ -15,6 +15,7 @@ public class EjemploTreeSetComparable {
         sa.add(new Alumno("Jano", 7));
         sa.add(new Alumno("Andres", 3));
         sa.add(new Alumno("Zeus", 2));
+        sa.add(new Alumno("Zeus", 8));
 
         System.out.println(sa);
     }

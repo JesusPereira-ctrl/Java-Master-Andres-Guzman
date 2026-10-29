@@ -1,5 +1,7 @@
 package org.aguzman.ejemplos.modelo;
 
+import java.util.Objects;
+
 public class Alumno implements Comparable<Alumno> {
 
     private String nombre;
@@ -51,5 +53,17 @@ public class Alumno implements Comparable<Alumno> {
             return 0;
         }
         return this.nota.compareTo(a.getNota());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Alumno alumno = (Alumno) object;
+        return Objects.equals(nombre, alumno.nombre) && Objects.equals(nota, alumno.nota);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, nota);
     }
 }
