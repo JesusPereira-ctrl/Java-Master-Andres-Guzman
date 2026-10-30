@@ -3,6 +3,7 @@ package org.aguzman.ejemplos.set;
 import org.aguzman.ejemplos.modelo.Alumno;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class EjemploLinkedList {
     public static void main(String[] args) {
@@ -45,5 +46,19 @@ public class EjemploLinkedList {
 
         enlazada.set(3, new Alumno("Lalo", 7));
         System.out.println(enlazada + ", size = " + enlazada.size());
+
+        ListIterator<Alumno> li = enlazada.listIterator();
+
+        System.out.println("========== Next");
+        while (li.hasNext()) {
+            Alumno alumno = li.next();
+            System.out.println(alumno);
+        }
+
+        System.out.println("========== Previous");
+        while (li.hasPrevious()) {
+            Alumno alumno = li.previous();
+            System.out.println(alumno);
+        }
     }
 }
