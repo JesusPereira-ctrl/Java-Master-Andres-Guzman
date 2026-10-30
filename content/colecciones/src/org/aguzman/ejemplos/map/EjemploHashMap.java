@@ -1,12 +1,15 @@
 package org.aguzman.ejemplos.map;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class EjemploHashMap {
     public static void main(String[] args) {
 
         Map<String, String> persona = new HashMap<>();
+        System.out.println("contiene elementos = " + !persona.isEmpty());
         persona.put(null, "1234");
         persona.put(null, "12345");
         persona.put("nombre", "John");
@@ -22,5 +25,51 @@ public class EjemploHashMap {
 
         String apellido = persona.get("apellido");
         System.out.println("apellido = " + apellido);
+
+        // String apellidoPaterno = persona.remove("apellidoPaterno");
+        boolean b = persona.remove("apellidoPaterno", "Doe");
+        System.out.println("eliminado " + b);
+        System.out.println("persona = " + persona);
+
+        boolean b2 = persona.containsKey("apellidoPaterno");
+        System.out.println("b2 = " + b2);
+
+        b2 = persona.containsValue("john.doe@email.co");
+        System.out.println("b2 = " + b2);
+
+        System.out.println("==================== values");
+        Collection<String> valores = persona.values();
+        for (String v : valores) {
+            System.out.println("v = " + v);
+        }
+
+        System.out.println("==================== keySet");
+        Set<String> llaves = persona.keySet();
+        for (String k : llaves) {
+            System.out.println("k = " + k);
+        }
+
+        System.out.println("==================== entrySet");
+        for (Map.Entry<String, String> par : persona.entrySet()) {
+            System.out.println(par.getKey() + " => " + par.getValue());
+        }
+
+        System.out.println("==================== keySet");
+        for (String llave : persona.keySet()) {
+            String valor = persona.get(llave);
+            System.out.println(llave + " => " + valor);
+        }
+
+        System.out.println("==================== java 8 forEach");
+        persona.forEach((llave, valor) -> {
+            System.out.println(llave + " => " + valor);
+        });
+
+        System.out.println("total = " + persona.size());
+        System.out.println("contiene elementos = " + !persona.isEmpty());
+
+        boolean b3 = persona.replace("nombre", "John", "Andrés");
+        System.out.println("b3 = " + b3);
+        System.out.println("persona = " + persona);
     }
 }
