@@ -1,5 +1,7 @@
 package org.aguzman.api.stream.ejemplos.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Usuario {
@@ -8,12 +10,24 @@ public class Usuario {
     private String nombre;
     private String apellido;
 
+    private List<Factura> facturas;
+
     private static int ultimoId;
 
     public Usuario(String nombre, String apellido) {
         this.id = ++ultimoId;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.facturas = new ArrayList<>();
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void addFactura(Factura factura) {
+        factura.setUsuario(this);
+        this.facturas.add(factura);
     }
 
     public Integer getId() {
