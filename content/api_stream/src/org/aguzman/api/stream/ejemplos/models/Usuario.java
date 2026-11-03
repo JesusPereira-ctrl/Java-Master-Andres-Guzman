@@ -1,5 +1,7 @@
 package org.aguzman.api.stream.ejemplos.models;
 
+import java.util.Objects;
+
 public class Usuario {
 
     private Integer id;
@@ -41,5 +43,17 @@ public class Usuario {
     @Override
     public String toString() {
         return nombre + " " + apellido;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Usuario usuario = (Usuario) object;
+        return Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido, usuario.apellido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, apellido);
     }
 }
