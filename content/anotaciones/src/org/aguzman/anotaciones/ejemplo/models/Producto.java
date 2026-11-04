@@ -9,7 +9,7 @@ public class Producto {
     @JsonAtributo
     private String nombre;
 
-    @JsonAtributo
+    @JsonAtributo(nombre = "costo")
     private Long precio;
 
     private LocalDate fecha;

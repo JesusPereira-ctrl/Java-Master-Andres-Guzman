@@ -2,7 +2,9 @@ package org.aguzman.anotaciones.ejemplo;
 
 import org.aguzman.anotaciones.ejemplo.models.Producto;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class EjemploAnotacion {
     public static void main(String[] args) {
@@ -11,5 +13,35 @@ public class EjemploAnotacion {
         p.setFecha(LocalDate.now());
         p.setNombre("mesa centro roble");
         p.setPrecio(1000L);
+
+        Field[] atributos = p.getClass().getDeclaredFields();
+
+        String json = Arrays.stream(atributos)
+                .filter(f -> f.isAnnotationPresent(JsonAtributo.class))
+                .map(f -> {
+                    f.setAccessible(true);
+                    String nombre = f.getAnnotation(JsonAtributo.class).nombre().isEmpty()
+                            ? f.getName()
+                            : f.getAnnotation(JsonAtributo.class).nombre();
+
+                    try {
+                        Object valor = f.get(p);
+
+                        if (valor instanceof Number) {
+                            return "\"" + nombre + "\": " + valor;
+                        }
+
+                        return "\"" + nombre + "\": \"" + valor + "\"";
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException("Error al serializar a json: " + e.getMessage());
+                    }
+                })
+                .reduce("{", (a, b) -> {
+                    if ("{".equals(a)) {
+                        return a + "\n\t" + b;
+                    }
+                    return a + ",\n\t" + b;
+                }).concat("\n}");
+        System.out.println(json);
     }
 }
