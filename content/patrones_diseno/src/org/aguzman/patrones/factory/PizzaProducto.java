@@ -30,6 +30,10 @@ abstract public class PizzaProducto {
         System.out.println("Poniendo la pizza en una caja de empaque...");
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString() {
         return "PizzaProducto{" +
