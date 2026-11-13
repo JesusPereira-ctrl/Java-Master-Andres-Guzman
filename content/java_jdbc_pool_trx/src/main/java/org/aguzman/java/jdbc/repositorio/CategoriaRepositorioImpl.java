@@ -8,9 +8,17 @@ import java.util.List;
 
 public class CategoriaRepositorioImpl implements Repositorio<Categoria> {
 
-    private final Connection conn;
+    private Connection conn;
 
     public CategoriaRepositorioImpl(Connection conn) {
+        this.conn = conn;
+    }
+
+    public CategoriaRepositorioImpl() {
+    }
+
+    @Override
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
 

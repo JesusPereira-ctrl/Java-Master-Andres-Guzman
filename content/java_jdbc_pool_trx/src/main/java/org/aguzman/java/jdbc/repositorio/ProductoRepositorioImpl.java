@@ -9,9 +9,17 @@ import java.util.List;
 
 public class ProductoRepositorioImpl implements Repositorio<Producto> {
 
-    private final Connection conn;
+    private Connection conn;
 
     public ProductoRepositorioImpl(Connection conn) {
+        this.conn = conn;
+    }
+
+    public ProductoRepositorioImpl() {
+    }
+
+    @Override
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
 
