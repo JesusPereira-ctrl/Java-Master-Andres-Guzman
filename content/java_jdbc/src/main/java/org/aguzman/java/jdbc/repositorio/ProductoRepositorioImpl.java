@@ -1,5 +1,6 @@
 package org.aguzman.java.jdbc.repositorio;
 
+import org.aguzman.java.jdbc.modelo.Categoria;
 import org.aguzman.java.jdbc.modelo.Producto;
 import org.aguzman.java.jdbc.util.ConexionBaseDatos;
 
@@ -19,7 +20,15 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
 
         try (
                 Statement stmt = this.getConnection().createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM productos")
+                ResultSet rs = stmt.executeQuery("""
+                        SELECT
+                            a.*,
+                            b.nombre as categoria
+                        FROM
+                            productos a
+                        INNER JOIN categorias b ON
+                            a.categoria_id = b.id
+                        """)
         ) {
             while (rs.next()) {
                 Producto p = crearProducto(rs);
@@ -38,7 +47,17 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
 
         try (
                 PreparedStatement stmt = this.getConnection()
-                        .prepareStatement("SELECT * FROM productos WHERE id = ?");
+                        .prepareStatement("""
+                                SELECT
+                                    a.*,
+                                    b.nombre as categoria
+                                FROM
+                                    productos a
+                                INNER JOIN categorias b ON
+                                    a.categoria_id = b.id
+                                WHERE
+                                    a.id = ?
+                                """);
         ) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -63,27 +82,29 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
                         productos
                     SET
                         nombre = ?,
-                        precio = ?
+                        precio = ?,
+                        categoria_id = ?
                     WHERE
                         id = ?
                     """;
         } else {
             sql = """
                     INSERT INTO
-                        productos (nombre, precio, fecha_registro)
+                        productos (nombre, precio, categoria_id, fecha_registro)
                     VALUES
-                        (?, ?, ?)
+                        (?, ?, ?, ?)
                     """;
         }
 
         try (PreparedStatement stmt = this.getConnection().prepareStatement(sql)) {
             stmt.setString(1, producto.getNombre());
             stmt.setInt(2, producto.getPrecio());
+            stmt.setLong(3, producto.getCategoria().getId());
 
             if (producto.getId() != null && producto.getId() > 0) {
-                stmt.setLong(3, producto.getId());
+                stmt.setLong(4, producto.getId());
             } else {
-                stmt.setDate(3, new Date(producto.getFechaRegistro().getTime()));
+                stmt.setDate(4, new Date(producto.getFechaRegistro().getTime()));
             }
 
             stmt.executeUpdate();
@@ -111,6 +132,13 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
         p.setNombre(rs.getString("nombre"));
         p.setPrecio(rs.getInt("precio"));
         p.setFechaRegistro(rs.getDate("fecha_registro"));
+
+        Categoria c = new Categoria();
+        c.setId(rs.getLong("categoria_id"));
+        c.setNombre(rs.getString("categoria"));
+
+        p.setCategoria(c);
+
         return p;
     }
 }

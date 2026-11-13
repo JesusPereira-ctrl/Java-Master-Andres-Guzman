@@ -1,5 +1,6 @@
 package org.aguzman.java.jdbc;
 
+import org.aguzman.java.jdbc.modelo.Categoria;
 import org.aguzman.java.jdbc.modelo.Producto;
 import org.aguzman.java.jdbc.repositorio.ProductoRepositorioImpl;
 import org.aguzman.java.jdbc.repositorio.Repositorio;
@@ -24,9 +25,12 @@ public class EjemploJdbcUpdate {
 
             System.out.println("========== editar producto ==========");
             Producto producto = new Producto();
-            producto.setId(3L);
-            producto.setNombre("Teclado Razer mecánico");
+            producto.setId(5L);
+            producto.setNombre("Teclado Corsair K95 mecánico");
             producto.setPrecio(700);
+            Categoria categoria = new Categoria();
+            categoria.setId(2L);
+            producto.setCategoria(categoria);
             repositorio.guardar(producto);
             System.out.println("Producto editado con éxito");
 
