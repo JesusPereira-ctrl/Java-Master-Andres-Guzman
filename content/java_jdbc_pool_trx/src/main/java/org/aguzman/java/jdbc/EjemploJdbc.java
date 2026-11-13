@@ -5,10 +5,11 @@ import org.aguzman.java.jdbc.modelo.Producto;
 import org.aguzman.java.jdbc.repositorio.ProductoRepositorioImpl;
 import org.aguzman.java.jdbc.repositorio.Repositorio;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 public class EjemploJdbc {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         Repositorio<Producto> repositorio = new ProductoRepositorioImpl();
 
