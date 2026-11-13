@@ -3,8 +3,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class HelloWorldWindow {
+    
     public static void main(String[] args) {
-
         createAndShowWindow();
     }
 
