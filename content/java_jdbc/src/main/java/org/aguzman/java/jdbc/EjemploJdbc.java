@@ -9,24 +9,23 @@ public class EjemploJdbc {
         String username = "root";
         String password = "5696";
 
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
-            ResultSet resultado = stmt.executeQuery("SELECT * FROM productos");
+        try (
+                Connection conn = DriverManager.getConnection(url, username, password);
+                Statement stmt = conn.createStatement();
+                ResultSet resultado = stmt.executeQuery("SELECT * FROM productos")
+        ) {
 
             while (resultado.next()) {
                 System.out.print(resultado.getInt("id"));
                 System.out.print(" | ");
                 System.out.print(resultado.getString("nombre"));
                 System.out.print(" | ");
+                System.out.print(resultado.getInt("precio"));
+                System.out.print(" | ");
                 System.out.println(resultado.getDate("fecha_registro"));
             }
-
-            resultado.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace(System.err);
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
         }
     }
 }
