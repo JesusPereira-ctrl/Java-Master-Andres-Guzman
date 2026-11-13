@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CategoriaRepositorioImpl implements Repositorio<Categoria> {
 
-    private Connection conn;
+    private final Connection conn;
 
     public CategoriaRepositorioImpl(Connection conn) {
         this.conn = conn;
@@ -20,7 +20,7 @@ public class CategoriaRepositorioImpl implements Repositorio<Categoria> {
 
         try (
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM categorias");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM categorias")
         ) {
             while (rs.next()) {
                 categorias.add(crearCategoria(rs));
@@ -41,7 +41,7 @@ public class CategoriaRepositorioImpl implements Repositorio<Categoria> {
                         FROM
                             categorias a
                         WHERE a.id = ?
-                        """);
+                        """)
         ) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
