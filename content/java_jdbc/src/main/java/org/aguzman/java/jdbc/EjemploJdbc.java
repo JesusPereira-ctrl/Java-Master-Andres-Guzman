@@ -1,30 +1,21 @@
 package org.aguzman.java.jdbc;
 
+import org.aguzman.java.jdbc.modelo.Producto;
+import org.aguzman.java.jdbc.repositorio.ProductoRepositorioImpl;
+import org.aguzman.java.jdbc.repositorio.Repositorio;
 import org.aguzman.java.jdbc.util.ConexionBaseDatos;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class EjemploJdbc {
     public static void main(String[] args) {
 
         try (
-                Connection conn = ConexionBaseDatos.getInstance();
-                Statement stmt = conn.createStatement();
-                ResultSet resultado = stmt.executeQuery("SELECT * FROM productos")
+                Connection conn = ConexionBaseDatos.getInstance()
         ) {
-
-            while (resultado.next()) {
-                System.out.print(resultado.getInt("id"));
-                System.out.print(" | ");
-                System.out.print(resultado.getString("nombre"));
-                System.out.print(" | ");
-                System.out.print(resultado.getInt("precio"));
-                System.out.print(" | ");
-                System.out.println(resultado.getDate("fecha_registro"));
-            }
+            Repositorio<Producto> repositorio = new ProductoRepositorioImpl();
+            repositorio.listar().forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
