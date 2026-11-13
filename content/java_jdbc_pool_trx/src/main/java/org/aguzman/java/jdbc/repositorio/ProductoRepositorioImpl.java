@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProductoRepositorioImpl implements Repositorio<Producto> {
 
-    private Connection conn;
+    private final Connection conn;
 
     public ProductoRepositorioImpl(Connection conn) {
         this.conn = conn;
@@ -57,7 +57,7 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
                                     a.categoria_id = b.id
                                 WHERE
                                     a.id = ?
-                                """);
+                                """)
         ) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -96,7 +96,7 @@ public class ProductoRepositorioImpl implements Repositorio<Producto> {
         }
 
         try (
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             stmt.setString(1, producto.getNombre());
             stmt.setInt(2, producto.getPrecio());
