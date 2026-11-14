@@ -131,8 +131,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private Product createProduct(ResultSet rs) throws SQLException {
         return new Product(
-                rs.getLong(0),
-                rs.getString(1),
+                rs.getLong(1),
+                rs.getString(2),
                 rs.getInt(3),
                 rs.getInt(4)
         );

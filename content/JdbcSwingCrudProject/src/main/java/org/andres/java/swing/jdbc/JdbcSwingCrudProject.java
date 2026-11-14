@@ -1,5 +1,6 @@
 package org.andres.java.swing.jdbc;
 
+import org.andres.java.swing.jdbc.models.Product;
 import org.andres.java.swing.jdbc.repositories.ProductRepository;
 import org.andres.java.swing.jdbc.repositories.ProductRepositoryImpl;
 
@@ -17,14 +18,13 @@ public class JdbcSwingCrudProject extends JFrame {
     private final JTextField priceField = new JTextField();
     private final JTextField quantityField = new JTextField();
     private final ProductTableModel tableModel = new ProductTableModel();
-    private final ProductRepository repository = new ProductRepositoryImpl();
+    private final ProductRepository productRepository = new ProductRepositoryImpl();
 
     private long id;
     private int row;
 
     public JdbcSwingCrudProject() throws HeadlessException {
         super("Swing: GUI con Base de Datos MySQL!");
-
         Container p = getContentPane();
         p.setLayout(new BorderLayout(20, 10));
 
@@ -80,8 +80,15 @@ public class JdbcSwingCrudProject extends JFrame {
                         JOptionPane.ERROR_MESSAGE
                 );
             } else {
+                Product productDb = productRepository.save(new Product(id == 0 ? null : id, name, price, quantity));
                 if (id == 0) {
-                    Object[] product = new Object[]{System.currentTimeMillis(), name, price, quantity, "Eliminar"};
+                    Object[] product = new Object[]{
+                            productDb.getId(),
+                            productDb.getName(),
+                            productDb.getPrice(),
+                            productDb.getQuantity(),
+                            "Ejecutar Acción"
+                    };
                     tableModel.getRows().add(product);
                     tableModel.fireTableDataChanged();
                 } else if (id > 0) {
@@ -90,7 +97,6 @@ public class JdbcSwingCrudProject extends JFrame {
                     tableModel.setValueAt(price, row, 2);
                     tableModel.setValueAt(quantity, row, 3);
                 }
-
                 reset();
             }
         });
@@ -115,6 +121,7 @@ public class JdbcSwingCrudProject extends JFrame {
                     );
 
                     if (option == JOptionPane.OK_OPTION) {
+                        productRepository.delete((long) tableModel.getValueAt(row, 0));
                         tableModel.getRows().remove(row);
                         tableModel.fireTableDataChanged();
                     }
@@ -155,8 +162,24 @@ public class JdbcSwingCrudProject extends JFrame {
 
     private static class ProductTableModel extends AbstractTableModel {
 
-        private final String[] columns = new String[]{"Id", "Nombre", "Precio", "Cantidad", "Delete"};
+        private final String[] columns = new String[]{"Id", "Nombre", "Precio", "Cantidad", "Eliminar"};
         private final List<Object[]> rows = new ArrayList<>();
+
+        public ProductTableModel() {
+            ProductRepository productRepository = new ProductRepositoryImpl();
+            List<Product> products = productRepository.findAll();
+
+            for (Product product : products) {
+                Object[] row = {
+                        product.getId(),
+                        product.getName(),
+                        product.getPrice(),
+                        product.getQuantity(),
+                        "Ejecutar Acción"
+                };
+                rows.add(row);
+            }
+        }
 
         public List<Object[]> getRows() {
             return rows;
