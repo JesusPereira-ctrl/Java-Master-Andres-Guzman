@@ -77,7 +77,7 @@ public class JdbcSwingCrudProject extends JFrame {
                 );
             } else {
                 if (id == 0) {
-                    Object[] product = new Object[]{System.currentTimeMillis(), name, price, quantity};
+                    Object[] product = new Object[]{System.currentTimeMillis(), name, price, quantity, "Eliminar"};
                     tableModel.getRows().add(product);
                     tableModel.fireTableDataChanged();
                 } else if (id > 0) {
@@ -87,12 +87,7 @@ public class JdbcSwingCrudProject extends JFrame {
                     tableModel.setValueAt(quantity, row, 3);
                 }
 
-                id = 0;
-                row = -1;
-
-                nameField.setText("");
-                priceField.setText("");
-                quantityField.setText("");
+                reset();
             }
         });
 
@@ -106,7 +101,23 @@ public class JdbcSwingCrudProject extends JFrame {
                 row = jTable.rowAtPoint(e.getPoint());
                 int column = jTable.columnAtPoint(e.getPoint());
 
-                if (row > -1 && column > -1) {
+                if (row > -1 && column == 4) {
+                    int option = JOptionPane.showConfirmDialog(
+                            null,
+                            "Estas seguro que deseas eliminar el registro " + tableModel.getValueAt(row, 1).toString() + "?",
+                            "Cuidado Eliminar Item",
+                            JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        tableModel.getRows().remove(row);
+                        tableModel.fireTableDataChanged();
+                    }
+
+                    reset();
+
+                } else if (row > -1 && column > -1) {
                     id = (long) tableModel.getValueAt(row, 0);
                     nameField.setText(tableModel.getValueAt(row, 1).toString());
                     priceField.setText(tableModel.getValueAt(row, 2).toString());
@@ -126,13 +137,21 @@ public class JdbcSwingCrudProject extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    private void reset() {
+        id = 0;
+        row = -1;
+        nameField.setText("");
+        priceField.setText("");
+        quantityField.setText("");
+    }
+
     static void main() {
         new JdbcSwingCrudProject();
     }
 
     private static class ProductTableModel extends AbstractTableModel {
 
-        private final String[] columns = new String[]{"Id", "Nombre", "Precio", "Cantidad"};
+        private final String[] columns = new String[]{"Id", "Nombre", "Precio", "Cantidad", "Delete"};
         private final List<Object[]> rows = new ArrayList<>();
 
         public List<Object[]> getRows() {
