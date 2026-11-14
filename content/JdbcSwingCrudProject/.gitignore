@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
+mysql_data
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
