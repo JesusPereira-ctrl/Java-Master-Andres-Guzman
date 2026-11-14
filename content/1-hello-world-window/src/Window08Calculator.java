@@ -71,7 +71,7 @@ public class Window08Calculator extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         new Window08Calculator();
     }
 
@@ -91,7 +91,13 @@ public class Window08Calculator extends JFrame implements ActionListener {
                 break;
             case CALCULATOR_DIVISION:
                 if (b == 0) {
-                    throw new ArithmeticException("no se puede dividir en cero, infinito");
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "No se puede dividir en cero, infinito!",
+                            "Error de entrada",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    break;
                 }
                 value = a / b;
                 break;
