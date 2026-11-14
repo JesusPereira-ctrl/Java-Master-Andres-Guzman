@@ -1,5 +1,8 @@
 package org.andres.java.swing.jdbc;
 
+import org.andres.java.swing.jdbc.repositories.ProductRepository;
+import org.andres.java.swing.jdbc.repositories.ProductRepositoryImpl;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -14,6 +17,7 @@ public class JdbcSwingCrudProject extends JFrame {
     private final JTextField priceField = new JTextField();
     private final JTextField quantityField = new JTextField();
     private final ProductTableModel tableModel = new ProductTableModel();
+    private final ProductRepository repository = new ProductRepositoryImpl();
 
     private long id;
     private int row;
