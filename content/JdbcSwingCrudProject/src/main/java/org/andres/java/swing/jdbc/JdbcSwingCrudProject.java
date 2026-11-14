@@ -3,8 +3,8 @@ package org.andres.java.swing.jdbc;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +13,10 @@ public class JdbcSwingCrudProject extends JFrame {
     private final JTextField nameField = new JTextField();
     private final JTextField priceField = new JTextField();
     private final JTextField quantityField = new JTextField();
-
     private final ProductTableModel tableModel = new ProductTableModel();
+
+    private long id;
+    private int row;
 
     public JdbcSwingCrudProject() throws HeadlessException {
         super("Swing: GUI con Base de Datos MySQL!");
@@ -37,18 +39,87 @@ public class JdbcSwingCrudProject extends JFrame {
 
         formPanel.add(new JLabel(""));
         formPanel.add(buttonSave);
-        buttonSave.addActionListener(new AddActionListener());
+        buttonSave.addActionListener(_ -> {
+            String name = nameField.getText();
+            int price = 0;
+            int quantity = 0;
+
+            try {
+                price = Integer.parseInt(priceField.getText());
+            } catch (NumberFormatException _) {
+            }
+
+            try {
+                quantity = Integer.parseInt(quantityField.getText());
+            } catch (NumberFormatException _) {
+            }
+
+            List<String> errors = new ArrayList<>();
+
+            if (name.isBlank()) {
+                errors.add("El nombre es requerido!");
+            }
+
+            if (price <= 0) {
+                errors.add("El precio es requerido y debe debe ser mayor a 0!");
+            }
+
+            if (quantity <= 0) {
+                errors.add("La cantidad es requerida y debe ser mayor a 0!");
+            }
+
+            if (!errors.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        errors.toArray(),
+                        "Error en la validación!",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            } else {
+                if (id == 0) {
+                    Object[] product = new Object[]{System.currentTimeMillis(), name, price, quantity};
+                    tableModel.getRows().add(product);
+                    tableModel.fireTableDataChanged();
+                } else if (id > 0) {
+                    tableModel.setValueAt(id, row, 0);
+                    tableModel.setValueAt(name, row, 1);
+                    tableModel.setValueAt(price, row, 2);
+                    tableModel.setValueAt(quantity, row, 3);
+                }
+
+                id = 0;
+                row = -1;
+
+                nameField.setText("");
+                priceField.setText("");
+                quantityField.setText("");
+            }
+        });
 
         JPanel tablePanel = new JPanel(new FlowLayout());
 
         JTable jTable = new JTable();
         jTable.setModel(tableModel);
+        jTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                row = jTable.rowAtPoint(e.getPoint());
+                int column = jTable.columnAtPoint(e.getPoint());
+
+                if (row > -1 && column > -1) {
+                    id = (long) tableModel.getValueAt(row, 0);
+                    nameField.setText(tableModel.getValueAt(row, 1).toString());
+                    priceField.setText(tableModel.getValueAt(row, 2).toString());
+                    quantityField.setText(tableModel.getValueAt(row, 3).toString());
+                }
+            }
+        });
 
         JScrollPane scroll = new JScrollPane(jTable);
         tablePanel.add(scroll);
 
-        p.add(tablePanel, BorderLayout.EAST);
-        p.add(formPanel, BorderLayout.WEST);
+        p.add(tablePanel, BorderLayout.SOUTH);
+        p.add(formPanel, BorderLayout.NORTH);
 
         pack();
         setVisible(true);
@@ -57,24 +128,6 @@ public class JdbcSwingCrudProject extends JFrame {
 
     static void main() {
         new JdbcSwingCrudProject();
-    }
-
-    private class AddActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String name = nameField.getText();
-            int price = Integer.parseInt(priceField.getText());
-            int quantity = Integer.parseInt(quantityField.getText());
-
-            Object[] product = new Object[]{System.currentTimeMillis(), name, price, quantity};
-            tableModel.getRows().add(product);
-            tableModel.fireTableDataChanged();
-
-            nameField.setText("");
-            priceField.setText("");
-            quantityField.setText("");
-        }
     }
 
     private static class ProductTableModel extends AbstractTableModel {
@@ -99,6 +152,12 @@ public class JdbcSwingCrudProject extends JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             return this.rows.get(rowIndex)[columnIndex];
+        }
+
+        @Override
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+            this.rows.get(rowIndex)[columnIndex] = aValue;
+            fireTableCellUpdated(rowIndex, columnIndex);
         }
 
         @Override
