@@ -5,6 +5,10 @@ import org.aguzman.appmockito.ejemplos.repositories.ExamenRepository;
 import org.aguzman.appmockito.ejemplos.repositories.PreguntaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,19 +16,27 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class ExamenServiceImplTest {
 
+    @Mock
     ExamenRepository examenRepository;
-    ExamenService service;
+
+    @Mock
     PreguntaRepository preguntaRepository;
+
+    @InjectMocks
+    ExamenServiceImpl service;
 
     @BeforeEach
     void setUp() {
-        examenRepository = mock(ExamenRepository.class);
-        preguntaRepository = mock(PreguntaRepository.class);
-        service = new ExamenServiceImpl(this.examenRepository, this.preguntaRepository);
+        // MockitoAnnotations.openMocks(this);
+        // examenRepository = mock(ExamenRepository.class);
+        // preguntaRepository = mock(PreguntaRepository.class);
+        // service = new ExamenServiceImpl(this.examenRepository, this.preguntaRepository);
     }
 
     @Test
