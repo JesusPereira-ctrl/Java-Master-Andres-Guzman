@@ -24,15 +24,22 @@ class CuentaTest {
 
     Cuenta cuenta;
 
+    private TestInfo testInfo;
+    private TestReporter testReporter;
+
     @BeforeAll
     static void beforeAll() {
         System.out.println("Inicializando el test");
     }
 
     @BeforeEach
-    void initMetodoTest() {
+    void initMetodoTest(TestInfo testInfo, TestReporter testReporter) {
         this.cuenta = new Cuenta("Andres", new BigDecimal("1000.12345"));
+        this.testInfo = testInfo;
+        this.testReporter = testReporter;
         System.out.println("iniciando el método.");
+        testReporter.publishEntry("ejecutando: " + testInfo.getDisplayName() + " " + testInfo.getTestMethod().orElse(null).getName()
+                + " con las etiquetas " + testInfo.getTags());
     }
 
     @AfterEach
@@ -52,6 +59,10 @@ class CuentaTest {
         @Test
         @DisplayName("el nombre!")
         void testNombreCuenta() {
+            testReporter.publishEntry(testInfo.getTags().toString());
+            if (testInfo.getTags().contains("cuenta")) {
+                testReporter.publishEntry("hacer algo con la etiqueta cuenta");
+            }
             // cuenta.setPersona("Andres");
             String esperado = "Andres";
             String real = cuenta.getPersona();
