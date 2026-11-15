@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExamenServiceImplTest {
@@ -82,20 +83,34 @@ class ExamenServiceImplTest {
     @Test
     void testNoExisteExamenVerify() {
         when(this.examenRepository.findAll()).thenReturn(Collections.emptyList());
-        when(this.preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
         Examen examen = this.service.findExamenPorNombreConPreguntas("Matemáticas2");
         assertNull(examen);
         verify(this.examenRepository).findAll();
-        verify(this.preguntaRepository).findPreguntasPorExamenId(5L);
+        verify(this.preguntaRepository, never()).findPreguntasPorExamenId(anyLong());
     }
 
     @Test
     void testGuardarExamen() {
+        // Given
         Examen newExamen = Datos.EXAMEN;
         newExamen.setPreguntas(Datos.PREGUNTAS);
 
-        when(this.examenRepository.guardar(any(Examen.class))).thenReturn(newExamen);
+        when(this.examenRepository.guardar(any(Examen.class))).then(new Answer<Examen>() {
+
+            Long secuencia = 8L;
+
+            @Override
+            public Examen answer(InvocationOnMock invocation) throws Throwable {
+                Examen examen = invocation.getArgument(0);
+                examen.setId(secuencia++);
+                return examen;
+            }
+        });
+
+        // When
         Examen examen = this.service.guardar(newExamen);
+
+        // Then
         assertNotNull(examen.getId());
         assertEquals(8L, examen.getId());
         assertEquals("Física", examen.getNombre());
