@@ -1,0 +1,8 @@
+package org.aguzman.appmockito.ejemplos.services;
+
+import org.aguzman.appmockito.ejemplos.models.Examen;
+
+public interface ExamenService {
+
+    Examen findExamenPorNombre(String nombre);
+}
