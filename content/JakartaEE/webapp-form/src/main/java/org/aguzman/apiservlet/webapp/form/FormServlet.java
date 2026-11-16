@@ -64,17 +64,17 @@ public class FormServlet extends HttpServlet {
         }
 
 
-        try (PrintWriter out = resp.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("    <head>");
-            out.println("        <meta charset=\"UTF-8\">");
-            out.println("        <title>Resultado form</title>");
-            out.println("    </head>");
-            out.println("    <body>");
-            out.println("        <h1>Resultado form!</h1>");
-            out.println("         <ul>");
-            if (errores.isEmpty()) {
+        if (errores.isEmpty()) {
+            try (PrintWriter out = resp.getWriter()) {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("    <head>");
+                out.println("        <meta charset=\"UTF-8\">");
+                out.println("        <title>Resultado form</title>");
+                out.println("    </head>");
+                out.println("    <body>");
+                out.println("        <h1>Resultado form!</h1>");
+                out.println("         <ul>");
                 out.println("             <li>Username: " + username + "</li>");
                 out.println("             <li>Password: " + password + "</li>");
                 out.println("             <li>Email: " + email + "</li>");
@@ -86,8 +86,6 @@ public class FormServlet extends HttpServlet {
                 });
                 out.println("                 </ul>");
                 out.println("             </li>");
-                out.println("         </ul>");
-                out.println("         <ul>");
                 out.println("             <li>Roles:");
                 out.println("                 <ul>");
                 Arrays.asList(roles).forEach(rol -> {
@@ -98,15 +96,17 @@ public class FormServlet extends HttpServlet {
                 out.println("             <li>Idioma: " + idioma + "</li>");
                 out.println("             <li>Habilitado: " + habilitar + "</li>");
                 out.println("             <li>Secreto: " + secreto + "</li>");
-            } else {
-                errores.forEach(error -> {
+                out.println("         </ul>");
+                out.println("    </body>");
+                out.println("</html>");
+            }
+        } else {
+                /*errores.forEach(error -> {
                     out.println("         <li>" + error + "</li>");
                 });
-                out.println("<p><a href=\"/webapp-form/index.html\">Volver</a></p>");
-            }
-            out.println("         </ul>");
-            out.println("    </body>");
-            out.println("</html>");
+                out.println("<p><a href=\"/webapp-form/index.jsp\">Volver</a></p>");*/
+            req.setAttribute("errores", errores);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
 }
