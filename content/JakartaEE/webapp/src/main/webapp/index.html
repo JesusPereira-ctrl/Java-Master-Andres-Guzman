@@ -6,6 +6,19 @@
 </head>
 <body>
 <h1>Hola mundo Tomcat</h1>
-<a href="/webapp/parametros/url-get?saludo=Hola Andres">Enviando parámetro saludo: /url-get?saludo=Hola Andres</a>
+<ul>
+    <li>
+        <a href="/webapp/parametros/url-get?saludo=Hola%20Andres">/url-get?saludo=Hola Andres</a>
+    </li>
+    <li>
+        <a href="/webapp/parametros/url-get?saludo=Hola&nombre=Andres&codigo=12345">/url-get?saludo=Hola&nombre=Andres&codigo=12345</a>
+    </li>
+    <li>
+        <a href="/webapp/parametros/url-get?saludo=Hola&nombre=Andres">/url-get?saludo=Hola&nombre=Andres</a>
+    </li>
+    <li>
+        <a href="/webapp/parametros/url-get?nombre=Andres">/url-get?nombre=Andres</a>
+    </li>
+</ul>
 </body>
 </html>
