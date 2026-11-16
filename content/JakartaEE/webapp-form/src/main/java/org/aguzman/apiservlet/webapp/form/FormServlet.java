@@ -26,12 +26,15 @@ public class FormServlet extends HttpServlet {
         String pais = req.getParameter("pais");
         String[] lenguajes = req.getParameterValues("lenguajes");
         String[] roles = req.getParameterValues("roles");
+        String idioma = req.getParameter("idioma");
+        String habilitar = req.getParameter("habilitar");
+        String secreto = req.getParameter("secreto");
 
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("    <head>");
-            out.println("        <meta charset=\"utf-8\">");
+            out.println("        <meta charset=\"UTF-8\">");
             out.println("        <title>Resultado form</title>");
             out.println("    </head>");
             out.println("    <body>");
@@ -49,6 +52,7 @@ public class FormServlet extends HttpServlet {
             out.println("                 </ul>");
             out.println("             </li>");
             out.println("         </ul>");
+            out.println("         <ul>");
             out.println("             <li>Roles:");
             out.println("                 <ul>");
             Arrays.asList(roles).forEach(rol -> {
@@ -56,6 +60,9 @@ public class FormServlet extends HttpServlet {
             });
             out.println("                 </ul>");
             out.println("             </li>");
+            out.println("             <li>Idioma: " + idioma + "</li>");
+            out.println("             <li>Habilitado: " + habilitar + "</li>");
+            out.println("             <li>Secreto: " + secreto + "</li>");
             out.println("         </ul>");
             out.println("    </body>");
             out.println("</html>");
